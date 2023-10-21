@@ -68,6 +68,37 @@ button:focus-visible {
   }
 } */
 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body{
+  font-family: 'Barlow', sans-serif;
+}
+
+.text-primary{
+  color: #212529;
+}
+.heading{
+  font-size: 40px;
+}
+
+.card{
+  width: 380px;
+  height: 380px;
+}
+.card-img{
+  width: 124px;
+  height: 124px;
+}
+.green{
+  background-color: #198754;
+}
+.red{
+  background-color: #DC3545;
+}
+.yellow{
+  background-color: yellow;
+}
