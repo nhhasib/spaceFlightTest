@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SearchBar from '../SearchBar/SearchBar';
+import SearchResultsList from '../SearchBar/SearchResultList';
 
 const Search = () => {
+    const [results, setResults] = useState([]);
     return (
-        <div className='grid grid-cols-2 gap-6 my-6'>
-            <div className=''>
-            <input className='border w-4/5' type="text" />
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 ">
+          <div className="">
+            <div className="mx-auto flex flex-col items-center sm:w-[400px] md:w-[400px] lg:w-[450px] xl:w-[800px] xxl:w-[800px]   relative z-10">
+              <SearchBar setResults={setResults} />
+              {results && results.length > 0 && (
+                <SearchResultsList results={results} />
+              )}
             </div>
-            <div className='flex gap-6'>
-                <div>
-                <input className='border' type="text" />
-                </div>
-                <div>
-                    <input className='border' type="text" />
-                    </div>
-            </div>
-        </div>
+          </div>
+        </ul>
+      </div>
     );
 };
 
