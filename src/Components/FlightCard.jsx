@@ -18,7 +18,7 @@ const FlightCard = ({data}) => {
     },[])
    
     return (
-        <div className='card border text-center rounded-lg'>
+        <div className='border text-center rounded-lg'>
             <div className='card-img mx-auto items-start justify-center align-middle my-6'>
             <img className='' src={links.mission_patch} alt="" />
             </div>

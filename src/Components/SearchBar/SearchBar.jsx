@@ -1,33 +1,37 @@
 import { useContext, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
-
-import useAllData from "../../Hooks/useAllData";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Spinner from "../Shared/Spinner";
 
 export const SearchBar = ({ setResults }) => {
 
   const [input, setInput] = useState("");
 
- const {allData,setFilterData}=useContext(AuthContext)
+ const {allData,setFilterData,setIsLoading}=useContext(AuthContext)
   const fetchData = (value) => {
-    const results = allData.filter((data) => {
-      return (
-        value &&
-        data &&
-        data.rocket.rocket_name &&
-        data.rocket.rocket_name.toLowerCase().includes(value)
-      );
-    });
-    setResults(results);
-setFilterData(results)
-    console.log(results)
+    if(value){
+      const results = allData.filter((data) => {
+        return (
+          value &&
+          data &&
+          data.rocket.rocket_name &&
+          data.rocket.rocket_name.toLowerCase().includes(value)
+        );
+      });
+      setResults(results);
+      setFilterData(results);
+      setIsLoading(false)
+    }
+    else(setFilterData(allData))
   };
 
   const handleChange = (value) => {
     setInput(value);
     fetchData(value);
+    setIsLoading(false);
   };
+
 
   return (
     <div className="flex">

@@ -8,9 +8,9 @@ import Filter from '../Components/Shared/Filter';
 
 const MainLayout = () => {
     return (
-        <div className='w-4/5 mx-auto'>
+        <div className='w-4/5 mx-auto my-10'>
             <Heading></Heading>
-            <div className='flex justify-between my-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 justify-between items-center my-10'>
             <Search></Search>
             <Filter></Filter>
             </div>

@@ -1,34 +1,31 @@
-import React, { createContext, useState } from 'react';
-import useAllData from '../Hooks/useAllData';
-
+import React, { createContext, useEffect, useState } from 'react';
 
 
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 
-    const{allData}=useAllData()
-    const [currentPage, setCurrentPage] = useState(1);
-    const [filterData,setFilterData]=useState(allData)
-           const itemsPerPage = 9;
-           const totalPages = Math.ceil(filterData.length / itemsPerPage);
-           const startIndex = (currentPage - 1) * itemsPerPage;
-           const endIndex = startIndex + itemsPerPage;
-           const paginatedBooks = allData.slice(startIndex, endIndex);
-           const handlePageChange = (page) => {
-             setCurrentPage(page);
-             window.scrollTo({ top: 0, behavior: "smooth" });
-           };
+   const [allData, setAllData] = useState([]);
+   const [filterData,setFilterData]=useState(allData);
+   const [isLoading, setIsLoading] = useState(true);
+   useEffect(() => {
+     fetch("https://api.spacexdata.com/v3/launches")
+       .then((res) => res.json())
+       .then((data) => {
+         setAllData(data);
+         setFilterData(data)
+         setIsLoading(false);
+       });
+   }, []);
+           
 
 
     const authInfo = {
-        allData,
-        totalPages,
-        currentPage,
-        paginatedBooks,
-        handlePageChange,
-        filterData,
-        setFilterData
-      };
+      allData,
+      filterData,
+      setFilterData,
+      isLoading,
+      setIsLoading
+    };
     
       return (
         <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

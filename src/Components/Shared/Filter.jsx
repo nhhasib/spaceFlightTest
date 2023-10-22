@@ -1,68 +1,81 @@
-import React, { useContext, useEffect, useState } from 'react';
-import useAllData from '../../Hooks/useAllData';
-import { AuthContext } from '../../Provider/AuthProvider';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Filter = () => {
- const {allData,setFilterData}=useContext(AuthContext)
-const [launchValue,setLaunchValue]=useState('default')
-const [launchDate,setLaunchDate]=useState('default')
+  const { allData, setFilterData } = useContext(AuthContext);
+  const [launchValue, setLaunchValue] = useState("default");
+  const [launchDate, setLaunchDate] = useState("default");
+  const [upComing,setUpComing]=useState(false)
 
-
-
-    useEffect(()=>{
-      let sortedFlight = [...allData];
-
+  let sortedFlight = [];
+  useEffect(() => {
     if (launchValue !== "default") {
-      sortedFlight = sortedFlight.filter(
-        (flight) => flight.launch_success === launchValue
-      );
-      setFilterData(sortedFlight)
+      sortedFlight = allData.filter(
+        (flight) =>
+          flight.launch_success !== null &&
+          flight.launch_success.toString() === launchValue
+          );
+          setFilterData(sortedFlight);
     }
-    if (launchDate !=="default") {
-      sortedFlight = sortedFlight.filter(
-        (flight) => flight.launch_success === launchDate
-      );
-      
-    }
-    },[launchValue,launchDate])
-
-    const handleLaunchChange=(value)=>{
-      setLaunchValue(value);
-    }
-
-    const handleLaunchDateChange = (value) => {
-      setLaunchDate(value);
-    };
+    // if(upComing===true){
+    //   sortedFlight = allData.filter((flight) => flight.upcoming === true);
+    //   setFilterData(sortedFlight)
+    // }
     
+    else(setFilterData(allData))
+      
+  }, [launchValue, launchDate, upComing]);
 
-    return (
-      <div className=''>
-        <div className='flex-col gap-4 justify-end'>
-        <input className='w-4' type="checkbox" name="" id="" />Show upcoming only
-        </div>
-        <div className='flex gap-6'>
+  const handleLaunchChange = (value) => {
+    setLaunchValue(value);
+  };
+
+  const handleLaunchDateChange = (value) => {
+    setLaunchDate(value);
+  };
+  const handleUpComing=()=>{
+    setUpComing(!upComing)
+  }
+
+  return (
+    <div className="w-auto">
+      <div className="flex my-2 lg:justify-end items-center">
+        <input
+          className="w-4 mr-2"
+          onClick={(e) => handleUpComing(e.target.value)}
+          type="checkbox"
+          name=""
+          id=""
+        />
+        Show upcoming only
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <select
-          className={"border focus:outline-none text-sm pr-5 ps-2 py-1 rounded text-gray-500"}
+          className={
+            "w-full border focus:outline-none text-sm pr-5 ps-2 py-2 my-2 rounded text-gray-500"
+          }
           value={launchValue}
           onChange={(e) => handleLaunchChange(e.target.value)}
         >
           <option value="default">By Launch Status</option>
-          <option value="true">Success</option>
-          <option value="false">Failed</option>
+          <option value={true}>Success</option>
+          <option value={false}>Failed</option>
         </select>
         <select
-          className={"border pr-6 focus:outline-none text-sm px-2 py-1 rounded text-gray-500"}
+          className={
+            "w-full border pr-6 focus:outline-none text-sm px-2 py-2 my-2 rounded text-gray-500"
+          }
           value={launchValue}
           onChange={(e) => handleLaunchDateChange(e.target.value)}
         >
           <option value="default">By Launch Date</option>
-          <option value="week">Last Week</option>
-          <option value="month">Last Month</option>
-          <option value="year">Last year</option>
+          <option value="lastWeek">Last Week</option>
+          <option value="lastMonth">Last Month</option>
+          <option value="lastYear">Last year</option>
         </select>
-        </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Filter;
