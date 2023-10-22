@@ -3,7 +3,7 @@ import "./SearchResult.css";
 import { Link } from "react-router-dom";
 
 
-const SearchResult = ({ result, id }) => {
+const SearchResult = ({ name, id,rocket }) => {
   // Tonmoy start
 
 
@@ -11,12 +11,11 @@ const SearchResult = ({ result, id }) => {
 
   return (
     <Link
-      to={`details/${id}`}
       className={`${
          "search-result hover:no-underline"
       }`}
     >
-      {result}
+      {name} <span className="text-xs text-gray-500">({rocket})</span>
     </Link>
   );
 };

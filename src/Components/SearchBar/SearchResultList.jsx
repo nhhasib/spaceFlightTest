@@ -9,7 +9,8 @@ const SearchResultsList = ({ results }) => {
       {results.map((result, _id) => (
         <SearchResult
           key={_id}
-          result={result.mission_name}
+          name={result.mission_name}
+          rocket={result.rocket.rocket_name}
           id={result.flight_number}
         ></SearchResult>
       ))}

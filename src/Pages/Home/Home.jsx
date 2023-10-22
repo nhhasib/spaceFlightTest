@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import useAllData from '../../Hooks/useAllData';
+import React, { useContext, useState } from 'react';
 import FlightCard from '../../Components/FlightCard';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import AuthProvider, { AuthContext } from '../../Provider/AuthProvider';
+import useAllData from '../../Hooks/useAllData';
 
 const Home = () => {
-   
-        const{allData}=useAllData()
- const [currentPage, setCurrentPage] = useState(1);
-        const itemsPerPage = 9;
-        const totalPages = Math.ceil(allData.length / itemsPerPage);
+  //  const {
+  //   totalPages,
+  //   currentPage,
+  //   paginatedBooks,
+  //   handlePageChange}=useContext(AuthContext)
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const paginatedBooks = allData.slice(startIndex, endIndex);
-        const handlePageChange = (page) => {
-          setCurrentPage(page);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        };
-    
-    console.log(allData)
+  const{allData}=useAllData()
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filterData,setFilterData]=useState(allData)
+         const itemsPerPage = 9;
+         const totalPages = Math.ceil(filterData.length / itemsPerPage);
+         const startIndex = (currentPage - 1) * itemsPerPage;
+         const endIndex = startIndex + itemsPerPage;
+         const paginatedBooks = allData.slice(startIndex, endIndex);
+         const handlePageChange = (page) => {
+           setCurrentPage(page);
+           window.scrollTo({ top: 0, behavior: "smooth" });
+         };
+        
+
     return (
       <div>
         <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -38,16 +44,16 @@ const Home = () => {
           >
             <IoIosArrowBack></IoIosArrowBack>
           </button>
-
-          {Array.from({ length: totalPages }, (_, index) => (
+    
+          {Array.from({ length: totalPages }, (_,index) => (
             <button
               key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
+              onClick={() =>{console.log(index); handlePageChange(index + 1)}}
               className={`${
                 currentPage === index + 1
                   ? "bg-[#0D6EFD] text-white"
                   : " hover:bg-gray-300 text-[#0D6EFD]"
-              } px-3 py-1 mx- border cursor-pointer`}
+              } px-3 py-1 border cursor-pointer`}
             >
               {index + 1}
             </button>
@@ -64,6 +70,7 @@ const Home = () => {
           >
             <IoIosArrowForward></IoIosArrowForward>
           </button>
+          
         </div>
       </div>
     );

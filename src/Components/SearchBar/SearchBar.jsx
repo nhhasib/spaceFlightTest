@@ -3,12 +3,13 @@ import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
 
 import useAllData from "../../Hooks/useAllData";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 export const SearchBar = ({ setResults }) => {
 
   const [input, setInput] = useState("");
 
-  const {allData}=useAllData()
+ const {allData,setFilterData}=useContext(AuthContext)
   const fetchData = (value) => {
     const results = allData.filter((data) => {
       return (
@@ -19,6 +20,7 @@ export const SearchBar = ({ setResults }) => {
       );
     });
     setResults(results);
+setFilterData(results)
     console.log(results)
   };
 

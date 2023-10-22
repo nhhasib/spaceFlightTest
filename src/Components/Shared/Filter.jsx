@@ -1,32 +1,39 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAllData from '../../Hooks/useAllData';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const Filter = () => {
-    const {allData}=useAllData()
-const {launchValue,setLaunchValue}=useState('Default')
-const {launchDate,setLaunchDate}=useState('Default')
+ const {allData,setFilterData}=useContext(AuthContext)
+const [launchValue,setLaunchValue]=useState('default')
+const [launchDate,setLaunchDate]=useState('default')
 
 
-    const handleLaunchChange=(value)=>{
-        setLaunchValue(value);
-    }
+
+    useEffect(()=>{
       let sortedFlight = [...allData];
 
-    if (launchValue !== "Default") {
+    if (launchValue !== "default") {
       sortedFlight = sortedFlight.filter(
-        (flight) => flight.launch_success === setLaunchValue
+        (flight) => flight.launch_success === launchValue
       );
+      setFilterData(sortedFlight)
+    }
+    if (launchDate !=="default") {
+      sortedFlight = sortedFlight.filter(
+        (flight) => flight.launch_success === launchDate
+      );
+      
+    }
+    },[launchValue,launchDate])
+
+    const handleLaunchChange=(value)=>{
+      setLaunchValue(value);
     }
 
     const handleLaunchDateChange = (value) => {
       setLaunchDate(value);
     };
-
-    if (launchDate !== "Default") {
-      sortedFlight = sortedFlight.filter(
-        (flight) => flight.launch_success === setLaunchData
-      );
-    }
+    
 
     return (
       <div className=''>
@@ -40,13 +47,13 @@ const {launchDate,setLaunchDate}=useState('Default')
           onChange={(e) => handleLaunchChange(e.target.value)}
         >
           <option value="default">By Launch Status</option>
-          <option value="Success">Success</option>
-          <option value="Failed">Failed</option>
+          <option value="true">Success</option>
+          <option value="false">Failed</option>
         </select>
         <select
           className={"border pr-6 focus:outline-none text-sm px-2 py-1 rounded text-gray-500"}
           value={launchValue}
-          onChange={(e) => handleLaunchChange(e.target.value)}
+          onChange={(e) => handleLaunchDateChange(e.target.value)}
         >
           <option value="default">By Launch Date</option>
           <option value="week">Last Week</option>
