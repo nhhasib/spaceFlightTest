@@ -5,10 +5,11 @@ import SearchResultsList from '../SearchBar/SearchResultList';
 const Search = () => {
     const [results, setResults] = useState([]);
     return (
-      <div className="navbar-center hidden lg:flex">
+      <div className=''>
+        <div className="navbar-start">
         <ul className="menu menu-horizontal px-1 ">
           <div className="">
-            <div className="mx-auto flex flex-col items-center sm:w-[400px] md:w-[400px] lg:w-[450px] xl:w-[800px] xxl:w-[800px]   relative z-10">
+            <div className="mx-auto flex flex-col relative z-10">
               <SearchBar setResults={setResults} />
               {results && results.length > 0 && (
                 <SearchResultsList results={results} />
@@ -16,6 +17,7 @@ const Search = () => {
             </div>
           </div>
         </ul>
+      </div>
       </div>
     );
 };

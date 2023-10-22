@@ -3,22 +3,24 @@ import { FaSearch } from "react-icons/fa";
 import "./SearchBar.css";
 
 import useAllData from "../../Hooks/useAllData";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 export const SearchBar = ({ setResults }) => {
 
   const [input, setInput] = useState("");
 
-  const {allData}=useAllData
+ const {allData,setFilterData}=useContext(AuthContext)
   const fetchData = (value) => {
-    const results = allData.filter((b) => {
+    const results = allData.filter((data) => {
       return (
         value &&
-        b &&
-        b.rocket.rocket_name &&
-        b.rocket.rocket_name.toLowerCase().includes(value)
+        data &&
+        data.rocket.rocket_name &&
+        data.rocket.rocket_name.toLowerCase().includes(value)
       );
     });
     setResults(results);
+setFilterData(results)
     console.log(results)
   };
 
@@ -35,7 +37,7 @@ export const SearchBar = ({ setResults }) => {
       >
         <input
           className="text-sm font-normal text-gray-700"
-          placeholder="Search"
+          placeholder="Search..."
           value={input}
           onChange={(e) => handleChange(e.target.value)}
         />
