@@ -10,8 +10,10 @@ const MainLayout = () => {
     return (
         <div className='w-4/5 mx-auto'>
             <Heading></Heading>
+            <div className='flex justify-between my-10'>
             <Search></Search>
             <Filter></Filter>
+            </div>
             <Outlet></Outlet>
             <Footer></Footer>
         </div>

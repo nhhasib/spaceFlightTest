@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import SearchResult from "./SearchResult";
+// import './SearchResultsList.css'
 
 const SearchResultsList = ({ results }) => {
   return (
@@ -8,8 +9,8 @@ const SearchResultsList = ({ results }) => {
       {results.map((result, _id) => (
         <SearchResult
           key={_id}
-          result={result.title}
-          id={result._id}
+          result={result.mission_name}
+          id={result.flight_number}
         ></SearchResult>
       ))}
     </div>

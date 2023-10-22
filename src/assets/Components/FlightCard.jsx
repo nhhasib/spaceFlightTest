@@ -16,8 +16,7 @@ const FlightCard = ({data}) => {
       const formattedDate = dateObject.toLocaleDateString('en-US', options);
       setDate(formattedDate);
     },[])
-    console.log(data.launch_success
-        )
+   
     return (
         <div className='card border text-center rounded-lg'>
             <div className='card-img mx-auto items-start justify-center align-middle my-6'>
